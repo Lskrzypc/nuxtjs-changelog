@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
-  modules: ['my-module'],
+  modules: ['nuxtjs-changelog'],
   devtools: { enabled: true },
   compatibilityDate: 'latest',
-  myModule: {},
+  changelog: {
+    filepath: './changelog.json',
+  },
 })
