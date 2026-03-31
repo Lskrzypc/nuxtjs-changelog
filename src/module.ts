@@ -1,19 +1,38 @@
-import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, extendPages, addServerHandler } from '@nuxt/kit'
+import { join } from 'node:path'
 
-// Module options TypeScript interface definition
-export interface ModuleOptions { }
+export interface ModuleOptions {
+  filepath: string
+  locale?: string
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'my-module',
-    configKey: 'myModule',
+    name: 'nuxtjs-changelog',
+    configKey: 'changelog',
   },
   // Default configuration options of the Nuxt module
-  defaults: {},
+  defaults: {
+    filepath: './changelog.json',
+    locale: 'en',
+  },
   setup(_options, _nuxt) {
     const resolver = createResolver(import.meta.url)
 
-    // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addPlugin(resolver.resolve('./runtime/plugin'))
+    const fullPath = join(_nuxt.options.rootDir, _options.filepath)
+    _nuxt.options.runtimeConfig.changelogFilePath = fullPath
+
+    addServerHandler({
+      route: '/api/_changelog',
+      handler: resolver.resolve('./runtime/server/api/changelog.get.ts'),
+    })
+
+    extendPages((pages) => {
+      pages.push({
+        name: 'changelog',
+        path: '/changelog',
+        file: resolver.resolve('./runtime/pages/changelog.vue'),
+      })
+    })
   },
 })
