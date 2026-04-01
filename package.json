@@ -1,8 +1,12 @@
 {
   "name": "nuxtjs-changelog",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "version": "0.0.1",
+  "description": "A zero-config Nuxt module to automate your release notes page with a single JSON file.",
+  "author": "Lskrzypc",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lskrzypc/nuxtjs-changelog.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -22,12 +26,10 @@
   "files": [
     "dist"
   ],
-  "workspaces": [
-    "playground"
-  ],
   "scripts": {
     "prepack": "nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxt dev playground",
+    "check": "npm run lint && npm run prepack",
     "dev:build": "nuxt build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",

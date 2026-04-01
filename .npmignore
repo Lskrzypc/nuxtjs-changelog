@@ -1,0 +1,13 @@
+node_modules/
+test/
+tests/
+.git/
+.github/
+.vscode/
+coverage/
+playground/
+*.log
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*

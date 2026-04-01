@@ -24,7 +24,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     addServerHandler({
       route: '/api/_changelog',
-      handler: resolver.resolve('./runtime/server/api/changelog.get.ts'),
+      handler: resolver.resolve('./runtime/server/api/changelog.get'),
     })
 
     extendPages((pages) => {
