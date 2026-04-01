@@ -36,7 +36,9 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "preversion": "git checkout dev && git pull && npm run check && git checkout main && git pull && git merge dev",
+    "postversion": "git push --tags && git push && git checkout dev && git rebase main && git push"
   },
   "dependencies": {
     "@nuxt/kit": "^4.4.2"
